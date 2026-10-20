@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "Osop0hoXW8I=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ANKUSH\\OneDrive\\Desktop\\CinemaTicketBooking-main\\Cinema Ticket Booking.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ANKUSH\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.36\\microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\ANKUSH\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.36\\microsoft.windowsdesktop.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\ANKUSH\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.36\\microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\ANKUSH\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.36\\microsoft.netcore.app.host.win-x64.6.0.36.nupkg.sha512"
+  ],
+  "logs": []
+}

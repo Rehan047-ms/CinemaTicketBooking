@@ -1,0 +1,143 @@
+@model Booking
+
+@{
+    ViewData["Title"] = "Book Ticket";
+}
+
+<div class="container mt-4">
+
+    <h1 class="mb-4">Book Cinema Ticket</h1>
+
+    <form asp-action="BookTicket"
+          asp-controller="Cinema"
+          method="post">
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CustomerName"
+                   class="form-label">
+                Customer Name
+            </label>
+
+            <input asp-for="CustomerName"
+                   class="form-control" />
+
+            <span asp-validation-for="CustomerName"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Email"
+                   class="form-label">
+                Email
+            </label>
+
+            <input asp-for="Email"
+                   class="form-control"
+                   type="email" />
+
+            <span asp-validation-for="Email"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Phone"
+                   class="form-label">
+                Phone
+            </label>
+
+            <input asp-for="Phone"
+                   class="form-control" />
+
+            <span asp-validation-for="Phone"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="MovieId"
+                   class="form-label">
+                Movie ID
+            </label>
+
+            <input asp-for="MovieId"
+                   class="form-control"
+                   type="number" />
+
+            <span asp-validation-for="MovieId"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="BookingDate"
+                   class="form-label">
+                Booking Date
+            </label>
+
+            <input asp-for="BookingDate"
+                   class="form-control"
+                   type="date" />
+
+            <span asp-validation-for="BookingDate"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ShowDate"
+                   class="form-label">
+                Show Date
+            </label>
+
+            <input asp-for="ShowDate"
+                   class="form-control"
+                   type="date" />
+
+            <span asp-validation-for="ShowDate"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="NumberOfTickets"
+                   class="form-label">
+                Number of Tickets
+            </label>
+
+            <input asp-for="NumberOfTickets"
+                   class="form-control"
+                   type="number"
+                   min="1"
+                   max="10" />
+
+            <span asp-validation-for="NumberOfTickets"
+                  class="text-danger">
+            </span>
+        </div>
+
+        <button type="submit"
+                class="btn btn-success">
+            Book Ticket
+        </button>
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+            Back
+        </a>
+
+    </form>
+
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

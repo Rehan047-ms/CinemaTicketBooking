@@ -1,0 +1,134 @@
+@model List<Booking>
+
+@{
+    ViewData["Title"] = "Cinema Bookings";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Cinema Ticket Bookings</h1>
+
+        <div>
+            <a asp-action="BookTicket"
+               class="btn btn-primary">
+                Book Ticket
+            </a>
+
+            <a asp-action="About"
+               class="btn btn-secondary">
+                About Cinema
+            </a>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            No bookings available.
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>Customer</th>
+                    <th>Movie</th>
+                    <th>Show Date</th>
+                    <th>Tickets</th>
+                    <th>Booking Status</th>
+                    <th>Total Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var booking in Model)
+                {
+                    var movie = new Movie
+                    {
+                        MovieId = booking.MovieId,
+                        MovieName = booking.MovieId == 1
+                            ? "Avengers: Endgame"
+                            : booking.MovieId == 2
+                                ? "RRR"
+                                : "3 Idiots",
+
+                        TicketPrice = booking.MovieId == 1
+                            ? 250
+                            : booking.MovieId == 2
+                                ? 200
+                                : 180
+                    };
+
+                    var status =
+                        booking.GetBookingStatus(booking.ShowDate);
+
+                    var total =
+                        booking.CalculateTotalAmount(movie.TicketPrice);
+
+                    <tr>
+                        <td>@booking.CustomerName</td>
+
+                        <td>@movie.MovieName</td>
+
+                        <td>
+                            @booking.ShowDate.ToString("dd-MM-yyyy")
+                        </td>
+
+                        <td>@booking.NumberOfTickets</td>
+
+                        <td>
+                            @if (status == "Completed")
+                            {
+                                <span class="badge bg-success">
+                                    Completed
+                                </span>
+                            }
+                            else if (status == "Today")
+                            {
+                                <span class="badge bg-warning text-dark">
+                                    Today
+                                </span>
+                            }
+                            else if (status == "Cancelled")
+                            {
+                                <span class="badge bg-danger">
+                                    Cancelled
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-info text-dark">
+                                    Upcoming
+                                </span>
+                            }
+                        </td>
+
+                        <td>₹@total</td>
+
+                        <td>
+                            <a asp-action="MovieDetails"
+                               asp-route-id="@booking.BookingId"
+                               class="btn btn-sm btn-primary">
+                                Movie Details
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+
+</div>

@@ -1,0 +1,142 @@
+@model Booking
+
+@{
+    ViewData["Title"] = "Movie Details";
+
+    var movieName = Model.MovieId == 1
+        ? "Bahubali:The Beginning"
+        : Model.MovieId == 2
+            ? "Pushpa"
+            : "Dhammal";
+
+    var genre = Model.MovieId == 1
+        ? "Action"
+        : Model.MovieId == 2
+            ? "Action"
+            : "Comedy";
+
+    var language = Model.MovieId == 1
+        ? "Hindi"
+        : Model.MovieId == 2
+            ? "Telugu"
+            : "Hindi";
+
+    var ticketPrice = Model.MovieId == 1
+        ? 250
+        : Model.MovieId == 2
+            ? 200
+            : 180;
+
+    var status = Model.GetBookingStatus(Model.ShowDate);
+
+    var totalAmount =
+        Model.CalculateTotalAmount(ticketPrice);
+}
+
+<div class="container mt-4">
+
+    <h1>Movie Booking Details</h1>
+
+    @if (status == "Completed")
+    {
+        <div class="alert alert-success">
+            The movie show has been completed.
+        </div>
+    }
+    else if (status == "Today")
+    {
+        <div class="alert alert-warning">
+            The movie show is scheduled for today.
+        </div>
+    }
+    else if (status == "Cancelled")
+    {
+        <div class="alert alert-danger">
+            This booking has been cancelled.
+        </div>
+    }
+    else if (status == "Upcoming")
+    {
+        <div class="alert alert-info">
+            The movie show is upcoming.
+        </div>
+    }
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Customer Name</th>
+            <td>@Model.CustomerName</td>
+        </tr>
+
+        <tr>
+            <th>Email</th>
+            <td>@Model.Email</td>
+        </tr>
+
+        <tr>
+            <th>Phone</th>
+            <td>@Model.Phone</td>
+        </tr>
+
+        <tr>
+            <th>Movie Name</th>
+            <td>@movieName</td>
+        </tr>
+
+        <tr>
+            <th>Genre</th>
+            <td>@genre</td>
+        </tr>
+
+        <tr>
+            <th>Language</th>
+            <td>@language</td>
+        </tr>
+
+        <tr>
+            <th>Ticket Price</th>
+            <td>₹@ticketPrice</td>
+        </tr>
+
+        <tr>
+            <th>Number of Tickets</th>
+            <td>@Model.NumberOfTickets</td>
+        </tr>
+
+        <tr>
+            <th>Booking Date</th>
+            <td>@Model.BookingDate.ToString("dd-MM-yyyy")</td>
+        </tr>
+
+        <tr>
+            <th>Show Date</th>
+            <td>@Model.ShowDate.ToString("dd-MM-yyyy")</td>
+        </tr>
+
+        <tr>
+            <th>Cancellation Date</th>
+            <td>
+                @(Model.CancellationDate?.ToString("dd-MM-yyyy")
+                    ?? "Not Cancelled")
+            </td>
+        </tr>
+
+        <tr>
+            <th>Booking Status</th>
+            <td>@status</td>
+        </tr>
+
+        <tr>
+            <th>Total Amount</th>
+            <td>₹@totalAmount</td>
+        </tr>
+
+    </table>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Back to Bookings
+    </a>
+
+</div>
